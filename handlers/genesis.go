@@ -85,7 +85,7 @@ func handlePostsGenesis(db desmosdb.DesmosDb, genState posts.GenesisState) error
 				reactValue = registeredReact.Value
 			}
 
-			postReact := types.NewPostReaction(postID, reactShortCode, reactValue, reaction.Owner)
+			postReact := types.NewPostReaction(postID, reactValue, reactShortCode, reaction.Owner)
 			err := db.SaveReaction(&postReact)
 			if err != nil {
 				return err
