@@ -26,7 +26,7 @@ func GetReactionFromTxEvent(tx jtypes.Tx, index int, eventType string) (*types.P
 		return nil, err
 	}
 
-	userStr, err := FindAttributeByKey(tx, event, "reaction_user")
+	userStr, err := FindAttributeByKey(tx, event, "user")
 	if err != nil {
 		return nil, err
 	}
@@ -35,12 +35,12 @@ func GetReactionFromTxEvent(tx jtypes.Tx, index int, eventType string) (*types.P
 		return nil, err
 	}
 
-	value, err := FindAttributeByKey(tx, event, "reaction_value")
+	value, err := FindAttributeByKey(tx, event, "reaction")
 	if err != nil {
 		return nil, err
 	}
 
-	shortCode, err := FindAttributeByKey(tx, event, "reaction_shortcode")
+	shortCode, err := FindAttributeByKey(tx, event, "shortcode")
 	if err != nil {
 		return nil, err
 	}
