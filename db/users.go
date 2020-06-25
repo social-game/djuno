@@ -120,6 +120,14 @@ func (db DesmosDb) saveProfile(profile profile.Profile) (*UserRow, error) {
 		return nil, err
 	}
 
+	var profilePic, coverPic *string
+	if profile.Pictures != nil && profile.Pictures.Profile != nil {
+		profilePic = profile.Pictures.Profile
+	}
+	if profile.Pictures != nil && profile.Pictures.Cover != nil {
+		coverPic = profile.Pictures.Cover
+	}
+
 	// Create if not exists
 	if row == nil {
 		sqlStmt := `INSERT INTO "user" (address, moniker, name, surname, bio, profile_pic, cover_pic) 
@@ -127,7 +135,7 @@ func (db DesmosDb) saveProfile(profile profile.Profile) (*UserRow, error) {
 		_, err := db.Sql.Exec(
 			sqlStmt,
 			profile.Creator.String(), profile.Moniker, profile.Name, profile.Surname, profile.Bio,
-			profile.Pictures.Profile, profile.Pictures.Cover,
+			profilePic, coverPic,
 		)
 		if err != nil {
 			return nil, err
@@ -141,7 +149,7 @@ func (db DesmosDb) saveProfile(profile profile.Profile) (*UserRow, error) {
 				SET moniker = $1, name = $2, surname = $3, bio = $4, profile_pic = $5, cover_pic = $6
 				WHERE address = $7`
 	_, err = db.Sql.Exec(sqlStmt,
-		profile.Moniker, profile.Name, profile.Surname, profile.Bio, profile.Pictures.Profile, profile.Pictures.Cover,
+		profile.Moniker, profile.Name, profile.Surname, profile.Bio, profilePic, coverPic,
 		profile.Creator.String())
 	if err != nil {
 		return nil, err
