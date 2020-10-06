@@ -22,3 +22,4 @@ require (
 	google.golang.org/genproto v0.0.0-20200319113533-08878b785e9c // indirect
 )
 replace github.com/desmos-labs/desmos => github.com/social-game/desmos v0.12.2-0.0.1
+replace github.com/desmos-labs/juno => github.com/wade-liwei/juno v0.0.1

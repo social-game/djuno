@@ -13,7 +13,7 @@ CREATE TABLE game_answer
     game_id     INTEGER NOT NULL REFERENCES game (id),
     answer_id   INTEGER NOT NULL,
     answer_text TEXT    NOT NULL,
-    CONSTRAINT answer_unique UNIQUE (game_id, answer_id)
+    CONSTRAINT game_answer_unique UNIQUE (game_id, answer_id)
 );
 
 CREATE TABLE user_game_answer

@@ -14,6 +14,8 @@ import (
 
 // MsgHandler allows to handle different message types from the poststypes module
 func MsgHandler(tx juno.Tx, index int, msg sdk.Msg, w worker.Worker) error {
+	fmt.Printf("post msg handler: index %v  msg: %v \n", index, msg)
+
 	if len(tx.Logs) == 0 {
 		log.Info().
 			Str("module", "poststypes").
