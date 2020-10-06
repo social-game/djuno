@@ -21,3 +21,4 @@ require (
 	google.golang.org/api v0.20.0
 	google.golang.org/genproto v0.0.0-20200319113533-08878b785e9c // indirect
 )
+replace github.com/desmos-labs/desmos => github.com/social-game/desmos v0.12.2-0.0.1

@@ -1,12 +1,13 @@
 package handlers
 
 import (
+	"time"
+
 	poststypes "github.com/desmos-labs/desmos/x/posts/types"
 	"github.com/desmos-labs/djuno/database"
 	"github.com/desmos-labs/djuno/notifications"
 	juno "github.com/desmos-labs/juno/types"
 	"github.com/rs/zerolog/log"
-	"time"
 )
 
 // HandleMsgCreatePost allows to properly handle the given msg present inside the specified tx at the specific
@@ -68,6 +69,10 @@ func createAndStorePostFromMsgCreatePost(
 
 	if msg.PollData != nil {
 		post = post.WithPollData(*msg.PollData)
+	}
+
+	if msg.GameData != nil {
+		post = post.WithGameData(*msg.GameData)
 	}
 
 	log.Info().

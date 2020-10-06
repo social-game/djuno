@@ -65,6 +65,11 @@ func (db DesmosDb) SavePost(post poststypes.Post) error {
 		return err
 	}
 
+	err = db.SaveGameData(post.PostID, post.GameData)
+	if err != nil {
+		return err
+	}
+
 	// Save medias
 	return db.saveMedias(post.PostID, post.Attachments)
 }
@@ -84,7 +89,7 @@ func (db DesmosDb) savePostContent(post poststypes.Post) error {
 	// Save the post
 	postSqlStatement := `
 	INSERT INTO post (id, parent_id, message, created, last_edited, allows_comments, subspace, creator_address, optional_data, hidden)
-	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
+	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 	ON CONFLICT (id) DO NOTHING`
 
 	var parentId *string
@@ -104,8 +109,8 @@ func (db DesmosDb) savePostContent(post poststypes.Post) error {
 // saveMedias allows to save the specified medias that are associated
 // to the post having the given postID
 func (db DesmosDb) saveMedias(postID poststypes.PostID, medias poststypes.Attachments) error {
-	stmt := `INSERT INTO media (post_id, uri, mime_type) 
-			 VALUES ($1, $2, $3) 
+	stmt := `INSERT INTO media (post_id, uri, mime_type)
+			 VALUES ($1, $2, $3)
 			 ON CONFLICT ON CONSTRAINT unique_post_media DO NOTHING`
 
 	for _, media := range medias {

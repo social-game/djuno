@@ -17,15 +17,15 @@ BUILD_FLAGS := -ldflags '$(LD_FLAGS)'
 build: go.sum
 ifeq ($(OS),Windows_NT)
 	@echo "building djuno binary..."
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/djuno.exe ./cmd/djuno
+	@go build $(BUILD_FLAGS) -o build/djuno.exe ./cmd/djuno
 else
 	@echo "building djuno binary..."
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/djuno ./cmd/djuno
+	@go build $(BUILD_FLAGS) -o build/djuno ./cmd/djuno
 endif
 
 install: go.sum
 	@echo "installing djuno binary..."
-	@go install -mod=readonly $(BUILD_FLAGS) ./cmd/djuno
+	@go install $(BUILD_FLAGS) ./cmd/djuno
 
 ###############################################################################
 # Tests / CI
